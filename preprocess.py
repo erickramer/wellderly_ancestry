@@ -28,7 +28,7 @@ def preprocess(vcf):
 					snps_only(). \
 					reset_ids(). \
 					to_vcftools(). \
-					min_Q(100). \
+					maf(0.05). \
 					recode()
 
 	bed_cleaned = vcf_cleaned. \
@@ -59,27 +59,11 @@ def get_raw_vcf_files(directory):
 
 if __name__ == "__main__":
 
-	# clean and merge 1000genomes VCF files
+	# clean and merge VCF files for each data set
 	otg = merge_vcfs(OTG_DIR, out="./data/1000genomes")
 	well = merge_vcfs(WELLDERLY_DIR, out="./data/wellderly")
 
 	# merge wellderly and 1000 genomes
 	# filter for LD
 	# run PCA
-	data = inner_join(otg, well, out="./data/merged"). \
-			indep_pairwise_filter(out="./data/merged_noLD"). \
-			pca()
-
-	# convert plink to admixture
-	# use 8 threads
-	# use 5-fold cross validation
-	# run unsupervised admixture for 2-6 populations
-	admixture = data. \
-					to_admixture(). \
-					threads(8). \
-					cv(5). \
-					unsupervised([2,3,4,5,6])
-
-
-
-
+	data = inner_join(otg, well, out="./data/merged")
