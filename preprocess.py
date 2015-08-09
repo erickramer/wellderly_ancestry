@@ -26,12 +26,12 @@ def preprocess(vcf):
 
 	print "Cleaning %s vcf file\n" % (base_name)
 
-	vcf_cleaned = VCFData(vcf). \
-					snps_only(). \
-					reset_ids(). \
-					to_vcftools(). \
-					maf(0.05). \
-					recode()
+	vcf_cleaned = VCFToolsData(vcf) \
+		.maf(0.05) \
+		.recode() \
+		.to_vcf() \
+		.snps_only() \
+		.reset_ids() 
 
 	bed_cleaned = vcf_cleaned. \
 			to_plink(). \
