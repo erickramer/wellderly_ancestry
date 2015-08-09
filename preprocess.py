@@ -24,6 +24,8 @@ def preprocess(vcf):
 	
 	base_name = re.sub("\.vcf.*$", "", vcf)
 
+	print "Cleaning %s vcf file\n" % (base_name)
+
 	vcf_cleaned = VCFData(vcf). \
 					snps_only(). \
 					reset_ids(). \
@@ -45,8 +47,11 @@ def merge_vcfs(directory, out=None):
 	Preprocess and merge all VCF files in a directory
 	"""
 
+
 	files = get_raw_vcf_files(directory)
 	cleaned = [preprocess(f) for f in files]
+
+	print "Cleaning finished\n\nBeginning merge\n"
 
 	merged = multi_outer_join(cleaned, out=out)
 	return merged
