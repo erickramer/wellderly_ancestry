@@ -24,7 +24,7 @@ def preprocess(vcf):
 	
 	base_name = re.sub("\.vcf.*$", "", vcf)
 
-	print "Cleaning %s vcf file\n" % (base_name)
+	print "Cleaning %s" % (base_name)
 
 	vcf_cleaned = VCFToolsData(vcf) \
 		.maf(0.05) \

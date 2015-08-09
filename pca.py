@@ -7,4 +7,3 @@ from biopipe import *
 PlinkData("./data/merged"). \
 	indep_pairwise_filter(out="./data/merged_noLD"). \
 	pca()
-
