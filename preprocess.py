@@ -59,6 +59,7 @@ def merge_vcfs(directory, out=None):
 def get_raw_vcf_files(directory):
 	files = map(lambda x: directory + x, os.listdir(directory))
 	files = filter(lambda x: "vcf" in x, files)
+	files = filter(lambda x: "cleaned" not in x, files)
 	files = filter(lambda x: "recode" not in x, files)
 	return files
 

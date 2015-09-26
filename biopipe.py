@@ -153,6 +153,7 @@ class PlinkData(BioData):
 
 	def __init__(self, filename):
 		self.filename = os.path.abspath(filename)
+		self.filename = os.path.realpath(self.filename)
 
 		if os.path.exists(self.filename + ".bed"):
 			self.cmd = sh.plink.bake("--bfile", self.filename)
